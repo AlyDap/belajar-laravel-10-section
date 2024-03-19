@@ -18,5 +18,19 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        $this->call([
+            UrutanSectionSeeder::class,
+            SectionGambarSeeder::class,
+            SectionPetaSeeder::class,
+            SectionTulisanSeeder::class,
+            SectionSlideshowSeeder::class,
+            SectionGbrHdgPrgfSeeder::class,
+
+            GbrHdgPrgfGambarSeeder::class,
+            GbrHdgPrgfHeadingSeeder::class,
+            GbrHdgPrgfHeadingParagrafSeeder::class,
+            SlideshowGambarSeeder::class
+        ]);
     }
 }

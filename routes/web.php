@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UrutanSectionController;
+use App\Models\Urutan_Section;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::prefix('/')->group(function () {
+    Route::get('', [UrutanSectionController::class, 'index'])->name('bebas');
 });

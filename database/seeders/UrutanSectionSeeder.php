@@ -43,7 +43,7 @@ class UrutanSectionSeeder extends Seeder
             [
                 'id' => '4',
                 'deskripsi_section' => 'section tulisan dengan warna background, tulisannya besar seperti tulisan selamat datang',
-                'jenis_section' => 'tulisan dengan bg warna full ',
+                'jenis_section' => 'tulisan dengan bg warna full',
                 'urutan_section' => '2',
                 'created_at' => now(),
                 'updated_at' => now(),

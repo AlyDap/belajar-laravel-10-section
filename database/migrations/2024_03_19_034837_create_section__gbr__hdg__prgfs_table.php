@@ -16,7 +16,11 @@ return new class extends Migration
             $table->uuid('id_section');
             $table->text('jumlah_gambar');
             $table->text('jumlah_heading');
+            $table->uuid('created_by')->nullable();
+            $table->uuid('updated_by')->nullable();
+            $table->uuid('deleted_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('id_section')->references('id')->on('urutan__sections');
         });

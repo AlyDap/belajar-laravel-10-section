@@ -19,4 +19,8 @@ class Section_Slideshow extends Model
     {
         return $this->belongsTo(Urutan_Section::class, 'id_section', 'id');
     }
+    public function slideshowGambar()
+    {
+        return $this->hasMany(Slideshow_Gambar::class);
+    }
 }

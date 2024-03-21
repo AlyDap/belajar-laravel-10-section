@@ -17,7 +17,7 @@ class SectionGbrHdgPrgfSeeder extends Seeder
         DB::table('section__gbr__hdg__prgfs')->insert([
             [
                 'id' => '1',
-                'id_section' => '3',
+                'id_section' => '5',
                 'jumlah_gambar' => '3',
                 'jumlah_heading' => '2',
                 'created_at' => now(),

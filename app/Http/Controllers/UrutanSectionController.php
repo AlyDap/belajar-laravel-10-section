@@ -7,8 +7,10 @@ use App\Models\Section_Gbr_Hdg_Prgf;
 use App\Models\Section_Peta;
 use App\Models\Section_Slideshow;
 use App\Models\Section_Tulisan;
+use App\Models\Slideshow_Gambar;
 use App\Models\Urutan_Section;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Foreach_;
 
 class UrutanSectionController extends Controller
 {
@@ -22,6 +24,7 @@ class UrutanSectionController extends Controller
   $sectionPeta = Section_Peta::all()->keyBy('id_section');
   $sectionTulisan = Section_Tulisan::all()->keyBy('id_section');
   $sectionSlideshow = Section_Slideshow::all()->keyBy('id_section');
+  $SlideshowGambar = Slideshow_Gambar::all();
   $sectionGHP = Section_Gbr_Hdg_Prgf::all()->keyBy('id_section');
   // Menyiapkan array untuk menyimpan hasil
   $sectionData = [];
@@ -33,14 +36,50 @@ class UrutanSectionController extends Controller
 
    // section_slideshows
    if ($section->jenis_section === 'slide show') {
-    $sectionData[] = $col;
-    $sectionData[] = '<h1>' . $section->deskripsi_section . '</h1>';
-    $sectionData[] = $penutupDiv;
+    // $sectionData[] = $col;
+
+    $sectionSlideshowId = $sectionSlideshow[$section->id] ?? null;
+    if ($sectionSlideshowId) {
+     $sectionData[] = '<div class="col-8 my-3 d-flex justify-content-center align-items-center p-0 m-0 border shadow">
+     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+     <div class="carousel-inner">';
+     // perulangan img slideshow
+     $isFirstSlide = true;
+
+     foreach ($SlideshowGambar as $slideshow) {
+      if ($slideshow->id_slideshow === $sectionSlideshowId->id) {
+       if ($isFirstSlide) {
+        $sectionData[] = '<div class="carousel-item active">
+                     <img src="/img/landing_page/' . $slideshow->file_gambar . '" class="d-block w-100" alt="gambar slideshow">
+                 </div>';
+        $isFirstSlide = false;
+       } else {
+        $sectionData[] = '<div class="carousel-item">
+                     <img src="/img/landing_page/' . $slideshow->file_gambar . '" class="d-block w-100" alt="gambar slideshow">
+                 </div>';
+       }
+      }
+     }
+     $sectionData[] = '</div>
+     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+      data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+     </button>
+     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+      data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+     </button>
+   </div>
+  </div>';
+    }
 
 
     // section_petas
    } elseif ($section->jenis_section === 'peta') {
     $sectionPetaId = $sectionPeta[$section->id] ?? null;
+    // dd($sectionPetaId);
     if ($sectionPetaId) {
      $sectionData[] = $col;
      $sectionData[] = $sectionPetaId->url_peta;

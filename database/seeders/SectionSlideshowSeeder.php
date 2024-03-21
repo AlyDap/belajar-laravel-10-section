@@ -16,7 +16,7 @@ class SectionSlideshowSeeder extends Seeder
         DB::table('section__slideshows')->insert([
             [
                 'id' => '1',
-                'id_section' => '3',
+                'id_section' => '1',
                 'jumlah_gambar' => '5',
                 'created_at' => now(),
                 'updated_at' => now(),

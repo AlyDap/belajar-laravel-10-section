@@ -16,7 +16,11 @@ return new class extends Migration
             $table->uuid('id_gbr_hdg_prgf');
             $table->text('nama_heading');
             $table->text('jumlah_paragraf');
+            $table->uuid('created_by')->nullable();
+            $table->uuid('updated_by')->nullable();
+            $table->uuid('deleted_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('id_gbr_hdg_prgf')->references('id')->on('section__gbr__hdg__prgfs');
         });

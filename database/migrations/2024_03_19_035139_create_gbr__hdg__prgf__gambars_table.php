@@ -15,7 +15,11 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('id_gbr_hdg_prgf');
             $table->text('file_gambar');
+            $table->uuid('created_by')->nullable();
+            $table->uuid('updated_by')->nullable();
+            $table->uuid('deleted_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('id_gbr_hdg_prgf')->references('id')->on('section__gbr__hdg__prgfs');
         });

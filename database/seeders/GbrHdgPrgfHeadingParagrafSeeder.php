@@ -30,7 +30,7 @@ class GbrHdgPrgfHeadingParagrafSeeder extends Seeder
             ],
             [
                 'id' => '3',
-                'id_gbr_hdg_prgf_head' => '1',
+                'id_gbr_hdg_prgf_head' => '2',
                 'text_paragraf' => 'Modi, ducimus nesciunt quas eius nihil id ullam minima voluptatem tenetur, rem ut necessitatibus, corporis non est distinctio recusandae deleniti atque commodi placeat corrupti at laborum? Aperiam, at, inventore non vel porro culpa blanditiis, nulla neque aliquam voluptate debitis!',
                 'created_at' => now(),
                 'updated_at' => now(),

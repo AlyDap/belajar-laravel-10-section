@@ -24,10 +24,6 @@
    object-fit: cover;
    object-position: center;
   }
-
-  /* .section-tulisan-bg {
-   height: auto;
-  } */
  </style>
 </head>
 

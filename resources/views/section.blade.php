@@ -28,55 +28,68 @@
   .carousel-item img {
    height: 350px;
    object-fit: cover;
-   /* Menghindari distorsi gambar */
-   /* Agar gambar tetap responsif */
+  }
+
+  .gambaratasbawah {
+   height: 100px;
+   width: 100px;
+   object-fit: cover;
+
   }
  </style>
 </head>
 
 <body>
  <div class="container-fluid m-0">
-  <div class="row">
+  <div class="row d-flex justify-content-center align-items-center">
 
    @foreach ($sectionData as $data)
     {!! $data !!}
    @endforeach
 
-  </div>
 
-  {{-- <div class="row my-3 d-flex justify-content-center align-items-center">
-   <div class="col-9 p-0 m-0 border shadow">
-    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-     <div class="carousel-inner">
-      <div class="carousel-item active">
-       <img src="/img/landing_page/slideshow-1.png" class="d-block w-100" alt="...">
-      </div>
-      <div class="carousel-item">
-       <img src="/img/landing_page/slideshow-2.png" class="d-block w-100" alt="...">
-      </div>
-      <div class="carousel-item">
-       <img src="/img/landing_page/slideshow-3.png" class="d-block w-100" alt="...">
-      </div>
-      <div class="carousel-item">
-       <img src="/img/landing_page/slideshow-4.png" class="d-block w-100" alt="...">
-      </div>
-      <div class="carousel-item">
-       <img src="/img/landing_page/slideshow-5.png" class="d-block w-100" alt="...">
-      </div>
+   <hr>
+   <hr>
+   <hr>
+   <div class="col-md-4 col-12 d-flex justify-content-center align-items-center">
+    <div class="row-12">
+     <div class="col-12">
+      <img src="/img/landing_page/gambar1.png" alt="gambarr" class="gambaratasbawah my-2 rounded-circle img-fluid">
      </div>
-     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-      data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-     </button>
-     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-      data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-     </button>
+     <div class="col-12">
+      <img src="/img/landing_page/gambar2.png" alt="gambarr" class="gambaratasbawah my-2 rounded-circle img-fluid">
+     </div>
+     <div class="col-12">
+      <img src="/img/landing_page/gambar3.png" alt="gambarr" class="gambaratasbawah my-2 rounded-circle img-fluid">
+     </div>
     </div>
    </div>
-  </div> --}}
+   <div class="col-md-8 col-12 d-flex align-items-center">
+    <div class="row-12">
+     <div class="col-12">
+      <h1 class="text-center">About</h1>
+     </div>
+     <div class="col-12">
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci nostrum sapiente assumenda autem, odio iure a
+       quis quae quidem reiciendis enim tenetur facere culpa neque in exercitationem animi id rem debitis iste saepe
+       delectus, optio placeat voluptatum. Exercitationem, architecto nobis!</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci nostrum sapiente assumenda autem, odio iure a
+       quis quae quidem reiciendis enim tenetur facere culpa neque in exercitationem animi id rem debitis iste saepe
+       delectus, optio placeat voluptatum. Exercitationem, architecto nobis!</p>
+     </div>
+     <div class="col-12">
+      <h1 class="text-center">Visi Misi</h1>
+     </div>
+     <div class="col-12">
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci nostrum sapiente assumenda autem, odio iure a
+       quis quae quidem reiciendis enim tenetur facere culpa neque in exercitationem animi id rem debitis iste saepe
+       delectus, optio placeat voluptatum. Exercitationem, architecto nobis!</p>
+     </div>
+    </div>
+   </div>
+  </div>
+
+
   <hr>
   <hr>
   <hr>

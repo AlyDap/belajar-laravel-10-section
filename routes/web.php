@@ -22,3 +22,13 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/')->group(function () {
     Route::get('', [UrutanSectionController::class, 'index'])->name('bebas');
 });
+Route::prefix('/urutansection')->group(function () {
+    Route::get('', [UrutanSectionController::class, 'indexTabelSection'])->name('bebaaas');
+    // LANJUTTT
+    Route::get('{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
+    Route::get('add/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
+    Route::get('store/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
+    Route::get('edit/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
+    Route::get('update/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
+    Route::get('{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
+});

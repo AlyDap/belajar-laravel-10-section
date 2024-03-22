@@ -12,11 +12,18 @@ use App\Models\Section_Slideshow;
 use App\Models\Section_Tulisan;
 use App\Models\Slideshow_Gambar;
 use App\Models\Urutan_Section;
+use Database\Seeders\UrutanSectionSeeder;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Foreach_;
 
 class UrutanSectionController extends Controller
 {
+ protected $urutanSection;
+
+ public function __construct()
+ {
+  $this->urutanSection = Urutan_Section::orderBy('urutan_section')->get();
+ }
  public function index()
  {
   // Mengambil semua data dari tabel Urutan_Section
@@ -80,12 +87,12 @@ class UrutanSectionController extends Controller
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
      </button>
-   </div>
-  </div>  
-  <div class="col-2">
-   </div>
-  </div>
- </div>';
+      </div>
+      </div>  
+      <div class="col-2">
+      </div>
+      </div>
+    </div>';
     }
 
 
@@ -176,5 +183,21 @@ class UrutanSectionController extends Controller
 
   // Mengirimkan data ke view 'section' untuk ditampilkan
   return view('section', ['sectionData' => $sectionData]);
+ }
+
+ public function indexTabelSection()
+ {
+  $data = [
+   'dataSection' => $this->urutanSection,
+  ];
+  return view('urutanSectionView', $data);
+ }
+
+ public function detailSection()
+ {
+  $data = [
+   'dataSection' => $this->urutanSection,
+  ];
+  return view('detailSectionView', $data);
  }
 }

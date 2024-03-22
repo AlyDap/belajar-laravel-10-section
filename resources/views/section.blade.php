@@ -43,12 +43,19 @@
     <img src="/img/landing_page/gambar2.png" alt="manms" style="width: 100%">
 
    </div> --}}
+   {{-- MASIH BISA DISCROL KANAN KIRI --}}
 
    @foreach ($sectionData as $data)
     {!! $data !!}
    @endforeach
 
+   <div class="col-12">
+    <div class="d-grid gap-2">
+     <a href="/urutansection" class="btn btn-primary" type="button">CRUD SECTION</a>
+    </div>
+   </div>
   </div>
+
  </div>
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

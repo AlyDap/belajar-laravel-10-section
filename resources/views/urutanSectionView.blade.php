@@ -17,9 +17,9 @@
    <div class="row-12 p-5">
     <div class="table-responsive card shadow px-2">
      <table class="table table-striped">
-      <thead>
+      <thead class="text-center">
        <tr>
-        <th>No Urut</th>
+        <th>No</th>
         <th>Deskripsi Section</th>
         <th>Jenis Section</th>
         <th>Aksi</th>
@@ -27,11 +27,11 @@
       <tbody>
        @foreach ($dataSection as $item)
         <tr>
-         <td>{{ $item->urutan_section }}</td>
+         <td class="text-center">{{ $item->urutan_section }}</td>
          <td>{{ $item->deskripsi_section }}</td>
          <td>{{ $item->jenis_section }}</td>
-         <td>
-          <a href="/urutansection/detail" type="button">
+         <td class="text-center">
+          <a href="/urutansection/detail/{{ $item->id }}" type="button">
            <span class="badge rounded-pill text-bg-info">Detail</span>
           </a>
           <a href="#" type="button">

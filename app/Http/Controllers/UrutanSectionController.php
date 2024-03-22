@@ -19,34 +19,34 @@ use PhpParser\Node\Stmt\Foreach_;
 class UrutanSectionController extends Controller
 {
  protected $urutanSection;
+ // protected $sectionGambar, $sectionPeta, $sectionTulisan, $sectionSlideshow, $sectionGHP;
+ // protected $slideshowGambar;
+ // protected $gambarGHP, $headingGHP, $paragrafHeadingGHP;
 
  public function __construct()
  {
   $this->urutanSection = Urutan_Section::orderBy('urutan_section')->get();
  }
+
  public function index()
  {
-  // Mengambil semua data dari tabel Urutan_Section
-  // $urutanSection = Urutan_Section::all();
   $urutanSection = Urutan_Section::orderBy('urutan_section')->get();
   //id_section = foreign key
   $sectionGambar = Section_Gambar::all()->keyBy('id_section');
   $sectionPeta = Section_Peta::all()->keyBy('id_section');
   $sectionTulisan = Section_Tulisan::all()->keyBy('id_section');
   $sectionSlideshow = Section_Slideshow::all()->keyBy('id_section');
-  $SlideshowGambar = Slideshow_Gambar::all();
   $sectionGHP = Section_Gbr_Hdg_Prgf::all()->keyBy('id_section');
-  $GambarGHP = Gbr_Hdg_Prgf_Gambar::all();
+  $slideshowGambar = Slideshow_Gambar::all();
+  $gambarGHP = Gbr_Hdg_Prgf_Gambar::all();
   $headingGHP = Gbr_Hdg_Prgf_Heading::all();
   $paragrafHeadingGHP = Gbr_Hdg_Prgf_Heading_Paragraf::all();
   // Menyiapkan array untuk menyimpan hasil
   $sectionData = [];
   $col = '<div class="col-12 mb-5 p-0">';
   $penutupDiv = '</div>';
-
   // Melakukan iterasi melalui setiap baris data
   foreach ($urutanSection as $section) {
-
    // section_slideshows DATA PERULANGAN
    if ($section->jenis_section == 'slide show') {
     // $sectionData[] = $col;
@@ -62,7 +62,7 @@ class UrutanSectionController extends Controller
      // perulangan img slideshow
      $isFirstSlide = true;
 
-     foreach ($SlideshowGambar as $slideshow) {
+     foreach ($slideshowGambar as $slideshow) {
       if ($slideshow->id_slideshow == $sectionSlideshowId->id) {
        if ($isFirstSlide) {
         $sectionData[] = '<div class="carousel-item active">
@@ -99,7 +99,6 @@ class UrutanSectionController extends Controller
     // section_petas 1 DATA
    } elseif ($section->jenis_section == 'peta') {
     $sectionPetaId = $sectionPeta[$section->id] ?? null;
-    // dd($sectionPetaId);
     if ($sectionPetaId) {
      $sectionData[] = $col;
      $sectionData[] = $sectionPetaId->url_peta;
@@ -137,7 +136,7 @@ class UrutanSectionController extends Controller
     if ($sectionGHPId) {
      $sectionData[] = '<div class="col-md-4 col-12 d-flex justify-content-center align-items-center  mb-5">
      <div class="row-12">';
-     foreach ($GambarGHP as $gbrGHP) {
+     foreach ($gambarGHP as $gbrGHP) {
       // perulangan gambar ghp
       if ($gbrGHP->id_gbr_hdg_prgf == $sectionGHPId->id) {
        $sectionData[] = '     <div class="col-12">
@@ -174,14 +173,7 @@ class UrutanSectionController extends Controller
     </div>';
     }
    }
-
-
-   // garis
-   // $sectionData[] = '<hr>';
   }
-
-
-  // Mengirimkan data ke view 'section' untuk ditampilkan
   return view('section', ['sectionData' => $sectionData]);
  }
 
@@ -193,11 +185,18 @@ class UrutanSectionController extends Controller
   return view('urutanSectionView', $data);
  }
 
- public function detailSection()
+ public function detailSection($id)
  {
-  $data = [
-   'dataSection' => $this->urutanSection,
-  ];
+  $data = [];
+  $urutanSection = Urutan_Section::findOrFail($id);
+  if ($urutanSection) {
+   $data = [
+    'deskripsi' => $urutanSection->deskripsi_section,
+    'jenis' => $urutanSection->jenis_section,
+    'urutan' => $urutanSection->urutan_section,
+   ];
+  }
+  // dd($data);
   return view('detailSectionView', $data);
  }
 }

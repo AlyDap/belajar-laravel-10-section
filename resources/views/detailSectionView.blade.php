@@ -16,23 +16,26 @@
   <div class="col">
    <div class="row-12 p-5">
     <div class="table-responsive card shadow px-2">
-     <table class="table table-striped">
-      <thead>
+     {{-- <table class="table table-striped">
+      <thead class="text-center">
        <tr>
-        <th>No Urut</th>
+        <th>No</th>
         <th>Deskripsi Section</th>
         <th>Jenis Section</th>
       </thead>
       <tbody>
        @foreach ($dataSection as $item)
         <tr>
-         <td>{{ $item->urutan_section }}</td>
-         <td>{{ $item->deskripsi_section }}</td>
-         <td>{{ $item->jenis_section }}</td>
+         <td class="text-center">{{ $item }}</td>
+         <td>{{ $item }}</td>
+         <td>{{ $item }}</td>
         </tr>
        @endforeach
       </tbody>
-     </table>
+     </table> --}}
+     <p>{{ $deskripsi }}</p>
+     <p>{{ $jenis }}</p>
+     <p>{{ $urutan }}</p>
     </div>
    </div>
   </div>

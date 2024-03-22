@@ -33,9 +33,9 @@
        @endforeach
       </tbody>
      </table> --}}
-     <p>{{ $deskripsi }}</p>
-     <p>{{ $jenis }}</p>
-     <p>{{ $urutan }}</p>
+     <p>{{ $dataSection->deskripsi_section }}</p>
+     <p>{{ $dataSection->jenis_section }}</p>
+     <p>{{ $dataSection->urutan_section }}</p>
     </div>
    </div>
   </div>

@@ -30,7 +30,6 @@ class DatabaseSeeder extends Seeder
             GbrHdgPrgfGambarSeeder::class,
             GbrHdgPrgfHeadingSeeder::class,
             GbrHdgPrgfHeadingParagrafSeeder::class,
-            SlideshowGambarSeeder::class
         ]);
     }
 }

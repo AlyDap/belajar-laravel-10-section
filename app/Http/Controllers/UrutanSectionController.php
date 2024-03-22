@@ -181,11 +181,21 @@ class UrutanSectionController extends Controller
         'dataSection' => $urutanSection,
       ];
       if ($urutanSection->jenis_section == 'slide show') {
-        // $sectionSlideshow=Section_Slideshow::
-
+        $data['detailSection'] = [];
+        $sectionSlideshow = Section_Slideshow::all();
+        foreach ($sectionSlideshow as $slideshow) {
+          if ($slideshow->id_section == $urutanSection->id) {
+            $data['detailSection'][] = $slideshow;
+          }
+        }
+      } elseif ($urutanSection->jenis_section == 'peta') {
+        $sectionPeta = Section_Peta::where('id_section', $urutanSection->id)->first();
+        if ($sectionPeta->id_section == $urutanSection->id) {
+          $data['detailSection'] = $sectionPeta->url_peta;
+        }
       }
     }
-    // dd($data);
+    // dd($data['detailSection']);
     return view('detailSectionView', $data);
   }
 }

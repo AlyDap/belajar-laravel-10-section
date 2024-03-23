@@ -16,61 +16,128 @@
    width: 100%;
    height: 300px;
   }
+
+  .gambar-full {
+   width: 75%;
+  }
+
+  .carousel-item img {
+   height: 350px;
+   object-fit: cover;
+  }
  </style>
 </head>
 
 <body>
  <div class="container-fluid">
-  <div class="col mb-5">
+  <div class="row mb-5 px-5">
    {{-- urutan section --}}
-   <div class="row-12 px-5 py-3">
+   <div class="col-12 py-3">
     <div class="card shadow px-2">
      <p>Urutan ke-{{ $dataSection->urutan_section }}</p>
      <p>Jenis : {{ $dataSection->jenis_section }}</p>
      <p>Deskripsi : {{ $dataSection->deskripsi_section }}</p>
     </div>
    </div>
-   {{-- section  slideshow --}}
+   {{-- section slideshow --}}
    @if ($dataSection->jenis_section == 'slide show')
-    <div class="row px-5 py-3 row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
-     @foreach ($detailSection as $item)
-      <div class="col">
-       <div class="card shadow">
-        <img src="/img/landing_page/{{ $item->file_gambar }}" class="card border-0" alt="{{ $item->file_gambar }}">
-        <div class="card-img-overlay p-0 d-flex flex-column">
-         <div class="py-0 px-1">
-          <span class="badge rounded-pill text-bg-secondary">{{ $item->id }}</span>
-         </div>
-         <div class="text-end p-1 mt-auto">
-          <a href="#"><span class="badge rounded-pill text-bg-info"><i class="bi bi-zoom-in"></i></span></a>
-          <a href="#"><span class="badge rounded-pill text-bg-warning"><i
-             class="bi bi-pencil-square"></i></span></a>
-          <a href="#"><span class="badge rounded-pill text-bg-danger"><i class="bi bi-trash3"></i></span></a>
-          <a href="#"><span class="badge rounded-pill text-bg-success"><i class="bi bi-floppy"></i></span></a>
+    <div class="col-12 ">
+     <div class="row justify-content-center">
+      @foreach ($detailSection as $item)
+       <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4">
+        <div class="card shadow">
+         <img src="/img/landing_page/{{ $item->file_gambar }}" class="card border-0" alt="{{ $item->file_gambar }}">
+         <div class="card-img-overlay p-0 d-flex flex-column">
+          <div class="py-0 px-1">
+           <span class="badge rounded-pill text-bg-secondary">{{ $item->id }}</span>
+          </div>
+          <div class="text-end p-1 mt-auto">
+           <a href="#"><span class="badge rounded-pill text-bg-info"><i class="bi bi-zoom-in"></i></span></a>
+           <a href="#"><span class="badge rounded-pill text-bg-warning"><i
+              class="bi bi-pencil-square"></i></span></a>
+           <a href="#"><span class="badge rounded-pill text-bg-danger"><i class="bi bi-trash3"></i></span></a>
+           <a href="#"><span class="badge rounded-pill text-bg-success"><i class="bi bi-floppy"></i></span></a>
+          </div>
          </div>
         </div>
        </div>
+      @endforeach
+     </div>
+    </div>
+    <div class="col-12">
+     <h3>Tampilan Slideshow</h3>
+     <div class="row">
+      <div class="col-2"></div>
+      <div class="col-8 m-0 p-0 border shadow">
+       <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+         @php
+          $no = 0;
+          $first = true;
+         @endphp
+         @foreach ($detailSection as $item)
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $no++ }}"
+           @if ($first) class="active" aria-current="true" @endif></button>
+          @php
+           $first = false;
+          @endphp
+         @endforeach
+        </div>
+        <div class="carousel-inner">
+         @php
+          $isFirstSlide = true;
+         @endphp
+         @foreach ($detailSection as $item)
+          <div class="carousel-item {{ $isFirstSlide ? 'active' : '' }}">
+           <img src="/img/landing_page/{{ $item->file_gambar }}" class="d-block w-100" alt="gambar slideshow">
+          </div>
+          @php
+           $isFirstSlide = false;
+          @endphp
+         @endforeach
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+         data-bs-slide="prev">
+         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+         <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+         data-bs-slide="next">
+         <span class="carousel-control-next-icon" aria-hidden="true"></span>
+         <span class="visually-hidden">Next</span>
+        </button>
+       </div>
       </div>
-     @endforeach
+      <div class="col-2"></div>
+     </div>
     </div>
    @elseif ($dataSection->jenis_section == 'peta')
-    <div class="row-12 px-5">
+    <div class="col-12">
      <div class="card shadow ">
       {!! $detailSection !!}
      </div>
     </div>
    @elseif ($dataSection->jenis_section == 'gambar full')
-    <div class="row-12 px-5">
-     <div class="card shadow px-2">
+    <div class="col-2">sss</div>
+    <div class="col-8 border">
+     <div class="px-2">
+      <img src="/img/landing_page/{{ $detailSection }}" class="img-fluid mx-auto d-block gambar-full"
+       alt="{{ $detailSection }}">
+      <div class="text-end p-1 mt-auto">
+       <a href="#"><span class="badge rounded-pill text-bg-warning"><i class="bi bi-pencil-square"></i></span></a>
+       <a href="#"><span class="badge rounded-pill text-bg-danger"><i class="bi bi-trash3"></i></span></a>
+       <a href="#"><span class="badge rounded-pill text-bg-success"><i class="bi bi-floppy"></i></span></a>
+      </div>
      </div>
     </div>
+    <div class="col-2">hhh</div>
    @elseif ($dataSection->jenis_section == 'tulisan dengan bg warna full')
-    <div class="row-12 px-5">
+    <div class="col-12">
      <div class="card shadow px-2">
      </div>
     </div>
    @elseif ($dataSection->jenis_section == 'gambar heading paragraf')
-    <div class="row-12 px-5">
+    <div class="col-12">
      <div class="card shadow px-2">
      </div>
     </div>

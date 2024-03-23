@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('deskripsi_section');
             $table->text('jenis_section');
             $table->text('urutan_section')->unique();
+            $table->text('status');
             $table->uuid('created_by')->nullable();
             $table->uuid('updated_by')->nullable();
             $table->uuid('deleted_by')->nullable();

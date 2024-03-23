@@ -25,6 +25,7 @@
         <th>Deskripsi Section</th>
         <th>Jenis Section</th>
         <th>Aksi</th>
+        {{-- <th>Status</th> --}}
       </thead>
       <tbody>
        @foreach ($dataSection as $item)

@@ -33,6 +33,12 @@
      <p>Urutan ke-{{ $dataSection->urutan_section }}</p>
      <p>Jenis : {{ $dataSection->jenis_section }}</p>
      <p>Deskripsi : {{ $dataSection->deskripsi_section }}</p>
+     <p>Status : @if ($dataSection->status == 'active')
+       Aktif
+      @else
+       Tidak Aktif
+      @endif
+     </p>
      <p>
       <a href="/urutansection" type="button" class="btn btn-dark">BACK</a>
      </p>
@@ -42,13 +48,16 @@
    @if ($dataSection->jenis_section == 'slide show')
     <div class="col-12">
      <div class="row justify-content-center">
+      @php
+       $no_urut = 0;
+      @endphp
       @foreach ($detailSection as $item)
        <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4">
         <div class="card shadow">
          <img src="/img/landing_page/{{ $item->file_gambar }}" class="card border-0" alt="{{ $item->file_gambar }}">
          <div class="card-img-overlay p-0 d-flex flex-column">
           <div class="py-0 px-1">
-           <span class="badge rounded-pill text-bg-secondary">{{ $item->id }}</span>
+           <span class="badge rounded-pill text-bg-secondary">{{ ++$no_urut }}</span>
           </div>
           <div class="text-end p-1 mt-auto">
            <a href="#"><span class="badge rounded-pill text-bg-info"><i class="bi bi-zoom-in"></i></span></a>
@@ -61,6 +70,38 @@
         </div>
        </div>
       @endforeach
+      {{-- keterangan slideshow --}}
+      <div class="col-12">
+       <div class="row">
+        <div class="col-6 card shadow mb-3">
+         <div class=""></div>
+         <h3>Keterangan</h3>
+         <ul>
+          <li>klik show badge warna biru muda bisa lihat gambar full</li>
+          <li>klik edit bisa ganti gambarnya, datanya berubah di database, lalu gambar yang dulu akan dihapus dan gambar
+           baru masuk storage. Akan tampil modal saat edit</li>
+          <li>klik delete bisa hapus gambarnya di database dan file imgnya. Untuk delete apakah ada batasan gambarnya
+           ada berapa misal minimal ada 2 gambar untuk slideshow, jika gambar sudah 2 maka tidak ada badge tong sampah,
+           saat input slide show juga minimal 2 gambar</li>
+          <li>klik unduh bisa download gambarnya</li>
+         </ul>
+        </div>
+        <div class="col-6 card shadow mb-3 ">
+         <h3>Progress</h3>
+         <h5>Sudah</h5>
+         <ul>
+          <li>----</li>
+         </ul>
+         <h5>Belum</h5>
+         <ul>
+          <li>fungsi show full gambar</li>
+          <li>fungsi edit gambar</li>
+          <li>fungsi delete gambar</li>
+          <li>fungsi download gambar</li>
+         </ul>
+        </div>
+       </div>
+      </div>
      </div>
     </div>
     <div class="col-12">
@@ -113,8 +154,35 @@
     {{-- section peta --}}
    @elseif ($dataSection->jenis_section == 'peta')
     <div class="col-12">
-     <div class="card shadow ">
+     <div class="card shadow mb-3">
       {!! $detailSection !!}
+     </div>
+     <button type="button" class="btn btn-warning">Ubah Peta</button>
+    </div>
+    {{-- keterangan peta --}}
+    <div class="col-12 mt-3">
+     <div class="row">
+      <div class="col-6 card shadow mb-3">
+       <div class=""></div>
+       <h3>Keterangan</h3>
+       <ul>
+        <li>klik ubah akan mengubah peta dan di dalam form nya ada link menuju google maps serta video panduan untuk
+         copy paste embeded url petanya. Akan tampil modal untuk ubahnya</li>
+        <li>Tidak ada hapus karena jika hapus maka saat jenis_section == peta tidak akan menampilkan apapun, kalau ingin
+         hapus ya hapus di tabel urutan_sesction nya</li>
+       </ul>
+      </div>
+      <div class="col-6 card shadow mb-3 ">
+       <h3>Progress</h3>
+       <h5>Sudah</h5>
+       <ul>
+        <li>----</li>
+       </ul>
+       <h5>Belum</h5>
+       <ul>
+        <li>Fungsi edit peta</li>
+       </ul>
+      </div>
      </div>
     </div>
     {{-- Section Gambar Full --}}
@@ -129,17 +197,122 @@
       </div>
      </div>
     </div>
+    {{-- Keterangan gambar full --}}
+    <div class="col-12 mt-3">
+     <div class="row">
+      <div class="col-6 card shadow mb-3">
+       <h3>Keterangan</h3>
+       <ul>
+        <li>klik ubah akan mengubah gambar Akan tampil modal untuk ubahnya, gambar lama dihapus distorage dan gambar
+         baru masuk storage</li>
+        <li>Simpan warna ijo bisa simpan / download gambarnya</li>
+        <li>Tidak ada hapus karena jika hapus maka saat jenis_section == gambar full tidak akan menampilkan apapun,
+         kalau ingin
+         hapus ya hapus di tabel urutan_sesction nya</li>
+       </ul>
+      </div>
+      <div class="col-6 card shadow mb-3 ">
+       <h3>Progress</h3>
+       <h5>Sudah</h5>
+       <ul>
+        <li>----</li>
+       </ul>
+       <h5>Belum</h5>
+       <ul>
+        <li>Fungsi edit gambar</li>
+        <li>Fungsi download / unduh gambar</li>
+       </ul>
+      </div>
+     </div>
+    </div>
     {{-- Section Text bg-color full --}}
    @elseif ($dataSection->jenis_section == 'tulisan dengan bg warna full')
     <div class="col-12">
-     <div class="card shadow px-2">
+     <div class="shadow mb-3">
+      <div class="bg-primary d-flex align-items-center text-center justify-content-center fs-2 py-5">
+       {{ $detailSection->tulisan }}
+      </div>
+     </div>
+     <div class="">
+      <button type="button" class="btn btn-warning">Ubah Tulisan</button>
+     </div>
+    </div>
+    {{-- Keterangan tulisan dengan bg warna full --}}
+    <div class="col-12 mt-3">
+     <div class="row">
+      <div class="col-6 card shadow mb-3">
+       <h3>Keterangan</h3>
+       <ul>
+        <li>klik ubah akan mengubah tulisan. Akan tampil modal untuk ubahnya</li>
+        <li>Tidak ada hapus karena jika hapus maka saat jenis_section == tulisan blablabla tidak akan menampilkan
+         apapun,
+         kalau ingin
+         hapus ya hapus di tabel urutan_section nya</li>
+       </ul>
+      </div>
+      <div class="col-6 card shadow mb-3 ">
+       <h3>Progress</h3>
+       <h5>Sudah</h5>
+       <ul>
+        <li>----</li>
+       </ul>
+       <h5>Belum</h5>
+       <ul>
+        <li>Fungsi ubah tulisan</li>
+       </ul>
+      </div>
      </div>
     </div>
     {{-- Section gambar heading paragraf --}}
    @elseif ($dataSection->jenis_section == 'gambar heading paragraf')
     <div class="col-12">
      <div class="card shadow px-2">
+      <div class="row">
+
+
+       {{-- nampilin gambar dulu --}}
+       @foreach ($detailSection as $item)
+        <div class="col-4">
+         <div class="d-flex justify-content-center">
+          <img src="/img/landing_page/{{ $item->file_gambar }}" class="img-fluid" alt="gambar">
+          <button type="button" class="btn btn-warning">Ubah</button>
+          <button type="button" class="btn btn-danger">Hapus</button>
+         </div>
+        </div>
+       @endforeach
+      </div>
      </div>
+    </div>
+    {{-- Keterangan gambar heading paragraf --}}
+    <div class="col-12 mt-3">
+     <div class="row">
+      <div class="col-6 card shadow mb-3">
+       <h3>Keterangan</h3>
+       <ul>
+        <li>klik ubah akan mengubah tulisan. Akan tampil modal untuk ubahnya</li>
+        <li>Tidak ada hapus karena jika hapus maka saat jenis_section == tulisan blablabla tidak akan menampilkan
+         apapun,
+         kalau ingin
+         hapus ya hapus di tabel urutan_section nya</li>
+       </ul>
+      </div>
+      <div class="col-6 card shadow mb-3 ">
+       <h3>Progress</h3>
+       <h5>Sudah</h5>
+       <ul>
+        <li>----</li>
+       </ul>
+       <h5>Belum</h5>
+       <ul>
+        <li>Fungsi ubah tulisan</li>
+       </ul>
+      </div>
+     </div>
+    </div>
+
+    <div class="col-12 mb-3">
+     <h3>Tampilan pada landing Page</h3>
+     <p>---</p>
     </div>
    @endif
   </div>

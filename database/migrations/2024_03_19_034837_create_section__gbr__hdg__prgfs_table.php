@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('section__gbr__hdg__prgfs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('id_section');
-            $table->text('jumlah_gambar');
-            $table->text('jumlah_heading');
             $table->uuid('created_by')->nullable();
             $table->uuid('updated_by')->nullable();
             $table->uuid('deleted_by')->nullable();

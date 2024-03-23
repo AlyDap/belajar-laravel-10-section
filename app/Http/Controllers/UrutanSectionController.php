@@ -187,7 +187,7 @@ class UrutanSectionController extends Controller
       $data = [
         'dataSection' => $urutanSection,
       ];
-      // SLIDESHOW
+      // SLIDESHOW tampilan detail sudah
       if ($urutanSection->jenis_section == 'slide show') {
         $data['detailSection'] = [];
         $sectionSlideshow = Section_Slideshow::all();
@@ -196,29 +196,34 @@ class UrutanSectionController extends Controller
             $data['detailSection'][] = $slideshow;
           }
         }
-        // PETA
+        // PETA tampilan sudah
       } elseif ($urutanSection->jenis_section == 'peta') {
         $sectionPeta = Section_Peta::where('id_section', $urutanSection->id)->first();
         if ($sectionPeta->id_section == $urutanSection->id) {
           $data['detailSection'] = $sectionPeta->url_peta;
         }
-        // GAMBAR FULL
+        // GAMBAR FULL tampilan sudah
       } elseif ($urutanSection->jenis_section == 'gambar full') {
         $sectionGambar = Section_Gambar::where('id_section', $urutanSection->id)->first();
         if ($sectionGambar->id_section == $urutanSection->id) {
           $data['detailSection'] = $sectionGambar->file_gambar;
         }
-        // TEXT DENGAN BG WARNA FULL
+        // TEXT DENGAN BG WARNA FULL tampilan sudah
       } elseif ($urutanSection->jenis_section == 'tulisan dengan bg warna full') {
-        $sectionPeta = Section_Peta::where('id_section', $urutanSection->id)->first();
-        if ($sectionPeta->id_section == $urutanSection->id) {
-          $data['detailSection'] = $sectionPeta->url_peta;
+        $sectionTulisan = Section_Tulisan::where('id_section', $urutanSection->id)->first();
+        if ($sectionTulisan->id_section == $urutanSection->id) {
+          $data['detailSection'] = $sectionTulisan;
         }
         // GAMBAR HEADING PARAGRAF
-      } elseif ($urutanSection->jenis_section == 'peta') {
-        $sectionPeta = Section_Peta::where('id_section', $urutanSection->id)->first();
-        if ($sectionPeta->id_section == $urutanSection->id) {
-          $data['detailSection'] = $sectionPeta->url_peta;
+      } elseif ($urutanSection->jenis_section == 'gambar heading paragraf') {
+        $sectionGHP = Section_Gbr_Hdg_Prgf::where('id_section', $urutanSection->id)->first();
+        if ($sectionGHP->id_section == $urutanSection->id) {
+          $gambarGHP = Gbr_Hdg_Prgf_Gambar::all();
+          foreach ($gambarGHP as $gbrGHP) {
+            if ($gbrGHP->id_gbr_hdg_prgf == $sectionGHP->id) {
+              $data['detailSection'][] = $gbrGHP;
+            }
+          }
         }
       }
     }

@@ -71,24 +71,30 @@
      </table>
      <hr>
      <h4>Progress</h4>
-     <p>Dikerjakan: show/detail tiap jenis section</p>
-     <p>Belum bisa: add , edit, delete, aktif, nonaktif</p>
-     <p>Kurang tampilan status dan kalau active ada radio</p>
-     <hr>
+     <ul>
+      <li>Dikerjakan: show/detail tiap jenis section</li>
+      <li>Belum bisa: add , edit, delete, aktif, nonaktif</li>
+     </ul>
      <h4>Fungsi</h4>
-     <p>Saat klik tambah section maka urutan otomatis menjadi terakhir dan bisa diubah urutannya pada update nanti</p>
-     <p>Jadi saat klik update warna kuning pada tabel ini akan mengupdate deskripsi dan jenis section, jika jenis
-      section diupdate
-      maka akan menghapus data section sebelumnya di tabel relasi?</p>
-     <p>Jika ingin mengupdate isi sectionya maka harus klik show warna biru muda</p>
-     <p>Jika delete warna merah maka akan menghapus datanya, sebelum itu urutan section akan diedit agar selisih tiap
-      urutan tetap 1. Misal yang dihapus adala urutan section 3 sedangkan ada 5 section, maka section urutan ke 3 akan
-      diubah menjadi urutan ke 0 dan yang urutan 4 ke bawah akan dikurangi 1, kemudian baru hapus urutan section 0. Ini
-      karena urutan section bersifat uniq</p>
-     <hr>
+     <ul>
+      <li>Saat klik tambah section maka urutan otomatis menjadi terakhir dan bisa diubah urutannya pada update nanti
+      </li>
+      <li>Jadi saat klik update warna kuning pada tabel ini akan mengupdate deskripsi dan jenis section, jika jenis
+       section diupdate
+       maka akan menghapus data section sebelumnya di tabel relasi?</li>
+      <li>Jika ingin mengupdate isi sectionya maka harus klik show warna biru muda</li>
+      <li>Jika delete warna merah maka akan menghapus datanya, sebelum itu urutan section akan diedit agar selisih tiap
+       urutan tetap 1. Misal yang dihapus adala urutan section 3 sedangkan ada 5 section, maka section urutan ke 3 akan
+       diubah menjadi urutan ke 0 dan yang urutan 4 ke bawah akan dikurangi 1, kemudian baru hapus urutan section 0. Ini
+       karena urutan section bersifat uniq</li>
+     </ul>
      <h4>UI / UX</h4>
-     <p>Kenapa saat diterapkan pada datatables, kolom tidak dapat membesar dan mengecil, masih statis, walau sudah
-      diberi responsive tetapi hanya scroll saja</p>
+     <ul>
+      <li>Tampilan status yang ijo besar yang merah mengecil, sepertinya bawaan bootstrap, karena saya hanya mengganti
+       bg-color nya saja jadi hijau dan merah</li>
+      <li>Kenapa saat diterapkan pada datatables, kolom tidak dapat membesar dan mengecil, masih statis, walau sudah
+       diberi responsive tetapi hanya scroll saja</li>
+     </ul>
 
     </div>
    </div>

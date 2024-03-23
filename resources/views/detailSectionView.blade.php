@@ -17,10 +17,6 @@
    height: 300px;
   }
 
-  .gambar-full {
-   width: 75%;
-  }
-
   .carousel-item img {
    height: 350px;
    object-fit: cover;
@@ -33,15 +29,18 @@
   <div class="row mb-5 px-5">
    {{-- urutan section --}}
    <div class="col-12 py-3">
-    <div class="card shadow px-2">
+    <div class="card shadow px-2 pt-2">
      <p>Urutan ke-{{ $dataSection->urutan_section }}</p>
      <p>Jenis : {{ $dataSection->jenis_section }}</p>
      <p>Deskripsi : {{ $dataSection->deskripsi_section }}</p>
+     <p>
+      <a href="/urutansection" type="button" class="btn btn-dark">BACK</a>
+     </p>
     </div>
    </div>
    {{-- section slideshow --}}
    @if ($dataSection->jenis_section == 'slide show')
-    <div class="col-12 ">
+    <div class="col-12">
      <div class="row justify-content-center">
       @foreach ($detailSection as $item)
        <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4">
@@ -111,31 +110,32 @@
       <div class="col-2"></div>
      </div>
     </div>
+    {{-- section peta --}}
    @elseif ($dataSection->jenis_section == 'peta')
     <div class="col-12">
      <div class="card shadow ">
       {!! $detailSection !!}
      </div>
     </div>
+    {{-- Section Gambar Full --}}
    @elseif ($dataSection->jenis_section == 'gambar full')
-    <div class="col-2">sss</div>
-    <div class="col-8 border">
-     <div class="px-2">
-      <img src="/img/landing_page/{{ $detailSection }}" class="img-fluid mx-auto d-block gambar-full"
+    <div class="col-12">
+     <div class="card shadow">
+      <img src="/img/landing_page/{{ $detailSection }}" class="img-fluid mx-auto d-block card-img-top"
        alt="{{ $detailSection }}">
-      <div class="text-end p-1 mt-auto">
+      <div class="text-end p-1 mb-1 mx-1 mt-auto">
        <a href="#"><span class="badge rounded-pill text-bg-warning"><i class="bi bi-pencil-square"></i></span></a>
-       <a href="#"><span class="badge rounded-pill text-bg-danger"><i class="bi bi-trash3"></i></span></a>
        <a href="#"><span class="badge rounded-pill text-bg-success"><i class="bi bi-floppy"></i></span></a>
       </div>
      </div>
     </div>
-    <div class="col-2">hhh</div>
+    {{-- Section Text bg-color full --}}
    @elseif ($dataSection->jenis_section == 'tulisan dengan bg warna full')
     <div class="col-12">
      <div class="card shadow px-2">
      </div>
     </div>
+    {{-- Section gambar heading paragraf --}}
    @elseif ($dataSection->jenis_section == 'gambar heading paragraf')
     <div class="col-12">
      <div class="card shadow px-2">

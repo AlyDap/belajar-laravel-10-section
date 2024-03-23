@@ -16,7 +16,7 @@ class SectionGambarSeeder extends Seeder
     {
         DB::table('section__gambars')->insert([
             [
-                'id' => '1',
+                'id' => Str::uuid(),
                 'id_section' => '3',
                 'file_gambar' => 'gambarbesar.png',
                 'created_at' => now(),

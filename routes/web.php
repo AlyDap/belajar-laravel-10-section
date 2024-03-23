@@ -26,6 +26,7 @@ Route::prefix('/urutansection')->group(function () {
     Route::get('', [UrutanSectionController::class, 'indexTabelSection'])->name('bebaaas');
     // LANJUTTT
     Route::get('detail/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
+    Route::get('updateUrutan/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
     // Route::get('add/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
     // Route::get('store/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
     // Route::get('edit/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');

@@ -11,6 +11,23 @@
   integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
  {{-- ikon bootstrap --}}
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+ <style>
+  .form-check-input {
+   cursor: pointer;
+  }
+
+  /* Merubah warna latar belakang toggle switch ketika dalam keadaan aktif */
+  .form-check-input:checked {
+   background-color: green !important;
+   /* Mengubah warna latar belakang menjadi hijau */
+  }
+
+  /* Merubah warna latar belakang toggle switch ketika dalam keadaan tidak aktif */
+  .form-check-input:not(:checked) {
+   background-color: red !important;
+   /* Mengubah warna latar belakang menjadi merah */
+  }
+ </style>
 </head>
 
 <body>
@@ -24,6 +41,7 @@
         <th>No</th>
         <th>Deskripsi Section</th>
         <th>Jenis Section</th>
+        <th>Status</th>
         <th>Aksi</th>
         {{-- <th>Status</th> --}}
       </thead>
@@ -33,6 +51,12 @@
          <td class="text-center">{{ $item->urutan_section }}</td>
          <td>{{ $item->deskripsi_section }}</td>
          <td>{{ $item->jenis_section }}</td>
+         <td>
+          <div class="form-check form-switch">
+           <input class="form-check-input" name="status_checkbox" type="checkbox" role="switch"
+            id="flexSwitchCheckChecked" @if ($item->status == 'active') checked @endif>
+          </div>
+         </td>
          <td class="text-center">
           <a href="/urutansection/detail/{{ $item->id }}" type="button">
            <span class="badge rounded-pill text-bg-info"><i class="bi bi-zoom-in"></i></span>
@@ -49,6 +73,7 @@
      <h4>Progress</h4>
      <p>Dikerjakan: show/detail tiap jenis section</p>
      <p>Belum bisa: add , edit, delete, aktif, nonaktif</p>
+     <p>Kurang tampilan status dan kalau active ada radio</p>
      <hr>
      <h4>Fungsi</h4>
      <p>Saat klik tambah section maka urutan otomatis menjadi terakhir dan bisa diubah urutannya pada update nanti</p>

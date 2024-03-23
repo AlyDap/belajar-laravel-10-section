@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class GbrHdgPrgfGambarSeeder extends Seeder
 {
@@ -15,21 +16,21 @@ class GbrHdgPrgfGambarSeeder extends Seeder
     {
         DB::table('gbr__hdg__prgf__gambars')->insert([
             [
-                'id' => '1',
+                'id' => Str::uuid(),
                 'id_gbr_hdg_prgf' => '1',
                 'file_gambar' => 'gambar1.png',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'id' => '2',
+                'id' => Str::uuid(),
                 'id_gbr_hdg_prgf' => '1',
                 'file_gambar' => 'gambar2.png',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'id' => '3',
+                'id' => Str::uuid(),
                 'id_gbr_hdg_prgf' => '1',
                 'file_gambar' => 'gambar3.png',
                 'created_at' => now(),

@@ -150,7 +150,6 @@ class UrutanSectionController extends Controller
                 // lanjut ke paragraf dalam heading
                 $sectionData[] = '<div class="col-12">';
                 foreach ($paragrafHeadingGHP as $phdgGHP) {
-
                   if ($phdgGHP->id_gbr_hdg_prgf_head == $hdgGHP->id) {
                     $sectionData[] = '<p>' . $phdgGHP->text_paragraf . '</p>';
                   }
@@ -219,9 +218,24 @@ class UrutanSectionController extends Controller
         $sectionGHP = Section_Gbr_Hdg_Prgf::where('id_section', $urutanSection->id)->first();
         if ($sectionGHP->id_section == $urutanSection->id) {
           $gambarGHP = Gbr_Hdg_Prgf_Gambar::all();
+          $headingGHP = Gbr_Hdg_Prgf_Heading::all();
+          // ambil array gambar
           foreach ($gambarGHP as $gbrGHP) {
             if ($gbrGHP->id_gbr_hdg_prgf == $sectionGHP->id) {
               $data['detailSection'][] = $gbrGHP;
+            }
+          }
+          // ambil array heading
+          foreach ($headingGHP as $headGHP) {
+            if ($headGHP->id_gbr_hdg_prgf == $sectionGHP->id) {
+              $data['detailSectionH'][] = $headGHP;
+              $paragrafHeadingGHP = Gbr_Hdg_Prgf_Heading_Paragraf::all();
+              // ambil array paragraf
+              foreach ($paragrafHeadingGHP as $prgfHeadGHP) {
+                if ($prgfHeadGHP->id_gbr_hdg_prgf_head == $headGHP->id) {
+                  $data['detailSectionP'][] = $prgfHeadGHP;
+                }
+              }
             }
           }
         }

@@ -21,6 +21,13 @@
    height: 350px;
    object-fit: cover;
   }
+
+  .gambaratasbawah {
+   height: 100px;
+   width: 100px;
+   object-fit: cover;
+
+  }
  </style>
 </head>
 
@@ -115,6 +122,7 @@
           $no = 0;
           $first = true;
          @endphp
+         {{-- Tombol geser slide show --}}
          @foreach ($detailSection as $item)
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $no++ }}"
            @if ($first) class="active" aria-current="true" @endif></button>
@@ -266,20 +274,77 @@
     {{-- Section gambar heading paragraf --}}
    @elseif ($dataSection->jenis_section == 'gambar heading paragraf')
     <div class="col-12">
-     <div class="card shadow px-2">
-      <div class="row">
+     <div class="row justify-content-center">
+      <div class="col-12 mb-3">
 
-
-       {{-- nampilin gambar dulu --}}
-       @foreach ($detailSection as $item)
-        <div class="col-4">
-         <div class="d-flex justify-content-center">
-          <img src="/img/landing_page/{{ $item->file_gambar }}" class="img-fluid" alt="gambar">
-          <button type="button" class="btn btn-warning">Ubah</button>
-          <button type="button" class="btn btn-danger">Hapus</button>
+       <button type="button" class="btn btn-primary">Tambah Gambar</button>
+       <button type="button" class="btn btn-info">Tambah Judul</button>
+      </div>
+      {{-- nampilin gambar dulu --}}
+      @php
+       $no_urut = 0;
+      @endphp
+      @foreach ($detailSection as $item)
+       <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4">
+        <div class="card shadow">
+         <img src="/img/landing_page/{{ $item->file_gambar }}" class="card border-0"
+          alt="{{ $item->file_gambar }}">
+         <div class="card-img-overlay p-0 d-flex flex-column">
+          <div class="py-0 px-1">
+           <span class="badge rounded-pill text-bg-secondary">{{ ++$no_urut }}</span>
+          </div>
+          <div class="text-end p-1 mt-auto">
+           <a href="#"><span class="badge rounded-pill text-bg-info"><i class="bi bi-zoom-in"></i></span></a>
+           <a href="#"><span class="badge rounded-pill text-bg-warning"><i
+              class="bi bi-pencil-square"></i></span></a>
+           <a href="#"><span class="badge rounded-pill text-bg-danger"><i class="bi bi-trash3"></i></span></a>
+           <a href="#"><span class="badge rounded-pill text-bg-success"><i class="bi bi-floppy"></i></span></a>
+          </div>
          </div>
         </div>
-       @endforeach
+       </div>
+      @endforeach
+      <div class="row">
+       <div class="col-2"></div>
+       <div class="col-8">
+        {{-- nampilin heading --}}
+        @foreach ($detailSectionH as $head)
+         <div class="row d-flex border align-items-center p-0 m-0">
+          <div class="col-1 p-1 text-center">
+           <a href="#"><span class="badge rounded-pill text-bg-warning"><i
+              class="bi bi-pencil-square"></i></span></a>
+           <a href="#"><span class="badge rounded-pill text-bg-danger"><i class="bi bi-trash3"></i></span></a>
+          </div>
+          <div class="col-11 p-1 pt-1 d-flex">
+           <div class="row">
+            <div class="col">
+             <h1>{{ $head->nama_heading }}</h1>
+            </div>
+            <div class="col-auto d-flex align-items-center justify-content-center">
+             <button type="button" class="btn btn-sm btn-primary">Tambah Paragraf</button>
+            </div>
+           </div>
+          </div>
+         </div>
+         {{-- </div> --}}
+         @foreach ($detailSectionP as $paragraf)
+          @if ($paragraf->id_gbr_hdg_prgf_head == $head->id)
+           <div class="row d-flex border align-items-center p-0 m-0">
+            <div class="col-1 p-1 text-center">
+             <a href="#"><span class="badge rounded-pill text-bg-warning"><i
+                class="bi bi-pencil-square"></i></span></a>
+             <a href="#"><span class="badge rounded-pill text-bg-danger"><i
+                class="bi bi-trash3"></i></span></a>
+            </div>
+            <div class="col-11 p-1 pt-1">
+             <p>{{ $paragraf->text_paragraf }}</p>
+            </div>
+           </div>
+          @endif
+         @endforeach
+        @endforeach
+       </div>
+       <div class="col-2"></div>
       </div>
      </div>
     </div>
@@ -289,11 +354,10 @@
       <div class="col-6 card shadow mb-3">
        <h3>Keterangan</h3>
        <ul>
-        <li>klik ubah akan mengubah tulisan. Akan tampil modal untuk ubahnya</li>
-        <li>Tidak ada hapus karena jika hapus maka saat jenis_section == tulisan blablabla tidak akan menampilkan
-         apapun,
-         kalau ingin
-         hapus ya hapus di tabel urutan_section nya</li>
+        <li>Minimal ada 1 gambar, 1 judul, 1 paragraf</li>
+        <li>Semua tombol edit akan memunculkan modal</li>
+        <li>Tombol tambah gambar dan tambah judul juga modal</li>
+        <li>Muncul notif saat mau hapus tapi data ada 1</li>
        </ul>
       </div>
       <div class="col-6 card shadow mb-3 ">
@@ -304,16 +368,48 @@
        </ul>
        <h5>Belum</h5>
        <ul>
-        <li>Fungsi ubah tulisan</li>
+        <li>Gambar = add, show, edit, delete, download</li>
+        <li>Judul = add, edit, delete</li>
+        <li>Paragraf = add, edit, delete</li>
        </ul>
       </div>
      </div>
     </div>
 
-    <div class="col-12 mb-3">
+    <div class="col-12 mb-3 p-0">
      <h3>Tampilan pada landing Page</h3>
-     <p>---</p>
+     <div class="row p-0">
+      <div class="col-md-4 col-12 d-flex justify-content-center align-items-center mb-5">
+       <div class="row-12">
+        @foreach ($detailSection as $item)
+         <div class="col-12">
+          <img src="/img/landing_page/{{ $item->file_gambar }}" alt="{{ $item->file_gambar }}"
+           class="gambaratasbawah my-2 rounded-circle img-fluid">
+         </div>
+        @endforeach
+       </div>
+      </div>
+      <div class="col-md-8 col-12 d-flex align-items-center mb-5">
+       <div class="row-12">
+
+        @foreach ($detailSectionH as $head)
+         <div class="col-12">
+          <h1 class="text-center">{{ $head->nama_heading }}</h1>
+         </div>
+         <div class="col-12">
+          @foreach ($detailSectionP as $paragraf)
+           @if ($paragraf->id_gbr_hdg_prgf_head == $head->id)
+            <p>{{ $paragraf->text_paragraf }}</p>
+           @endif
+          @endforeach
+         </div>
+        @endforeach
+       </div>
+      </div>
+     </div>
     </div>
+
+    {{-- end section --}}
    @endif
   </div>
  </div>

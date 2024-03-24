@@ -41,17 +41,58 @@
         <th>No</th>
         <th>Deskripsi Section</th>
         <th>Jenis Section</th>
+        <th>Posisi</th>
         <th>Status</th>
         <th>Aksi</th>
         {{-- <th>Status</th> --}}
       </thead>
       <tbody>
-       @foreach ($dataSection as $item)
+       {{-- @foreach ($dataSection as $item)
         <tr>
          <td class="text-center">{{ $item->urutan_section }}</td>
          <td>{{ $item->deskripsi_section }}</td>
          <td>{{ $item->jenis_section }}</td>
-         <td>
+         <td class="text-center">
+          <span class="badge rounded-pill text-bg-secondary" id="posisinaik" type="button"><i
+            class="bi bi-chevron-double-up"></i></span>
+          <span class="badge rounded-pill text-bg-secondary" id="posisiturun" type="button"><i
+            class="bi bi-chevron-double-down"></i></span>
+         </td>
+         <td class="text-center">
+          <div class="form-check form-switch">
+           <input class="form-check-input" name="status_checkbox" type="checkbox" role="switch"
+            id="flexSwitchCheckChecked" @if ($item->status == 'active') checked @endif>
+          </div>
+         </td>
+         <td class="text-center">
+          <a href="/urutansection/detail/{{ $item->id }}" type="button">
+           <span class="badge rounded-pill text-bg-info"><i class="bi bi-zoom-in"></i></span>
+          </a>
+          <a href="#"><span class="badge rounded-pill text-bg-warning"><i
+             class="bi bi-pencil-square"></i></span></a>
+          <a href="#"><span class="badge rounded-pill text-bg-danger"><i class="bi bi-trash3"></i></span></a>
+         </td>
+        </tr>
+       @endforeach --}}
+       @foreach ($dataSection as $key => $item)
+        <tr>
+         <td class="text-center">{{ $item->urutan_section }}</td>
+         <td>{{ $item->deskripsi_section }}</td>
+         <td>{{ $item->jenis_section }}</td>
+         <td class="text-center">
+          @if ($key != 0)
+           <!-- Jika item bukan yang pertama -->
+           <span class="badge rounded-pill text-bg-secondary posisinaik" type="button"><i
+             class="bi bi-chevron-double-up"></i></span>
+          @endif
+
+          @if ($key != count($dataSection) - 1)
+           <!-- Jika item bukan yang terakhir -->
+           <span class="badge rounded-pill text-bg-secondary posisiturun" type="button"><i
+             class="bi bi-chevron-double-down"></i></span>
+          @endif
+         </td>
+         <td class="text-center">
           <div class="form-check form-switch">
            <input class="form-check-input" name="status_checkbox" type="checkbox" role="switch"
             id="flexSwitchCheckChecked" @if ($item->status == 'active') checked @endif>
@@ -67,8 +108,13 @@
          </td>
         </tr>
        @endforeach
+
       </tbody>
      </table>
+     <hr>
+     <a href="#" class="btn btn-secondary" type="button">Tambah Section</a>
+     <hr>
+     <a href="/" class="btn btn-primary" type="button">Tampilan Urutan Section Landing Page</a>
      <hr>
      <h4>Progress</h4>
      <ul>
@@ -104,6 +150,26 @@
  {{-- bootstrap --}}
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+ {{-- ikon naik turun urutan section diklik --}}
+ <script>
+  // Menangkap elemen dengan kelas "posisinaik" dan menambahkan event listener
+  var posisinaikElements = document.querySelectorAll(".posisinaik");
+  posisinaikElements.forEach(function(element) {
+   element.addEventListener("click", function() {
+    console.log("Ikon Chevron Double Up diklik!");
+   });
+  });
+
+  // Menangkap elemen dengan kelas "posisiturun" dan menambahkan event listener
+  var posisiturunElements = document.querySelectorAll(".posisiturun");
+  posisiturunElements.forEach(function(element) {
+   element.addEventListener("click", function() {
+    console.log("Ikon Chevron Double Down diklik!");
+   });
+  });
+ </script>
+
 
 </body>
 

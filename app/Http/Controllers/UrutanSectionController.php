@@ -167,7 +167,7 @@ class UrutanSectionController extends Controller
     } else {
       $sectionData[] = '<p class="text-center">Data tidak ditemukan</p>';
     }
-    return view('section', ['sectionData' => $sectionData]);
+    return view('sections.section', ['sectionData' => $sectionData]);
   }
 
   public function indexTabelSection()
@@ -175,7 +175,7 @@ class UrutanSectionController extends Controller
     $data = [
       'dataSection' => $this->urutanSection,
     ];
-    return view('urutanSectionView', $data);
+    return view('sections.urutanSectionView', $data);
   }
 
   public function detailSection($id)
@@ -242,6 +242,49 @@ class UrutanSectionController extends Controller
       }
     }
     // dd($data['detailSection']);
-    return view('detailSectionView', $data);
+    return view('sections.detailSectionView', $data);
+  }
+
+  public function moveUp($id)
+  {
+    $section = Urutan_Section::findOrFail($id);
+    $currentOrder = $section->urutan_section;
+
+    // Jika data yang dipilih adalah data pertama, maka tidak ada yang bisa diatasnya
+    if ($currentOrder == 1) {
+      return response()->json(['message' => 'Data sudah berada di urutan paling atas']);
+    }
+
+    // Menemukan data dengan urutan sebelumnya
+    $previousSection = Urutan_Section::where('urutan_section', $currentOrder - 1)->first();
+
+    // Menukar urutan antara data yang dipilih dan data sebelumnya
+    $section->update(['urutan_section' => $currentOrder - 1]);
+    $previousSection->update(['urutan_section' => $currentOrder]);
+
+    return response()->json(['message' => 'Urutan data berhasil diperbarui']);
+  }
+
+  public function moveDown($id)
+  {
+    $section = Urutan_Section::findOrFail($id);
+    $currentOrder = $section->urutan_section;
+
+    // Menemukan jumlah total data
+    $totalSections = Urutan_Section::count();
+
+    // Jika data yang dipilih adalah data terakhir, maka tidak ada yang bisa dibawahnya
+    if ($currentOrder == $totalSections) {
+      return response()->json(['message' => 'Data sudah berada di urutan paling bawah']);
+    }
+
+    // Menemukan data dengan urutan setelahnya
+    $nextSection = Urutan_Section::where('urutan_section', $currentOrder + 1)->first();
+
+    // Menukar urutan antara data yang dipilih dan data setelahnya
+    $section->update(['urutan_section' => $currentOrder + 1]);
+    $nextSection->update(['urutan_section' => $currentOrder]);
+
+    return response()->json(['message' => 'Urutan data berhasil diperbarui']);
   }
 }

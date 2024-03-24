@@ -24,12 +24,16 @@ Route::prefix('/')->group(function () {
 });
 Route::prefix('/urutansection')->group(function () {
     Route::get('', [UrutanSectionController::class, 'indexTabelSection'])->name('bebaaas');
-    // LANJUTTT
+    // Detail urutan Section
     Route::get('detail/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
-    Route::get('updateUrutan/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
-    // Route::get('add/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
-    // Route::get('store/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
-    // Route::get('edit/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
-    // Route::get('update/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
-    // Route::get('delete/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
+    // update urutan section naik turun
+    // Update Urutan Section
+    Route::post('updateUrutan/{id}/move-up', [UrutanSectionController::class, 'moveUp'])->name('urutansection.move-up');
+    Route::post('updateUrutan/{id}/move-down', [UrutanSectionController::class, 'moveDown'])->name('urutansection.move-down');
 });
+// Route::get('updateUrutan/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
+// Route::get('add/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
+// Route::get('store/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
+// Route::get('edit/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
+// Route::get('update/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');
+// Route::get('delete/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');

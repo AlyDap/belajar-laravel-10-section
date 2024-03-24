@@ -251,7 +251,8 @@ class UrutanSectionController extends Controller
 
     // Jika data yang dipilih adalah data pertama, maka tidak ada yang bisa diatasnya
     if ($currentOrder == 1) {
-      return response()->json(['message' => 'Data sudah berada di urutan paling atas']);
+      // return response()->json(['message' => 'Data sudah berada di urutan paling atas']);
+      return redirect()->back()->with('warning', 'Posisi sudah berada di urutan paling atas');
     }
 
     // Menemukan data dengan urutan sebelumnya
@@ -264,7 +265,8 @@ class UrutanSectionController extends Controller
     // baru ubah yang mau naik
     $section->update(['urutan_section' => $currentOrder - 1]);
 
-    return response()->json(['message' => 'Urutan data berhasil diperbarui']);
+    // return response()->json(['message' => 'Urutan data berhasil diperbarui']);
+    return redirect()->back()->with('success', 'Posisi berhasil diubah');
   }
 
   public function turun($id)
@@ -277,7 +279,8 @@ class UrutanSectionController extends Controller
 
     // Jika data yang dipilih adalah data terakhir, maka tidak ada yang bisa dibawahnya
     if ($currentOrder == $totalSections) {
-      return response()->json(['message' => 'Data sudah berada di urutan paling bawah']);
+      // return response()->json(['message' => 'Data sudah berada di urutan paling bawah']);
+      return redirect()->back()->with('warning', 'Posisi sudah berada di urutan paling bawah');
     }
 
     // Menemukan data dengan urutan setelahnya
@@ -288,6 +291,15 @@ class UrutanSectionController extends Controller
     $nextSection->update(['urutan_section' => $currentOrder]);
     $section->update(['urutan_section' => $currentOrder + 1]);
 
-    return response()->json(['message' => 'Urutan data berhasil diperbarui']);
+    // return response()->json(['message' => 'Urutan data berhasil diperbarui']);
+    return redirect()->back()->with('success', 'Posisi berhasil diubah');
+  }
+  public function status(Request $request, $id)
+  {
+    // dd($id);
+    $section = Urutan_Section::findOrFail($id);
+    $status = $request->input('status');
+    $section->update(['status' => $status]);
+    return redirect()->back()->with('success', 'Status berhasil diubah.');
   }
 }

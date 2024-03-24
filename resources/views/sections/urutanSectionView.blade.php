@@ -32,8 +32,8 @@
 
 <body>
  <div class="container-fluid">
-  <div class="col">
-   <div class="row-12 p-5">
+  <div class="row">
+   <div class="col-12 p-5">
     <div class="table-responsive card shadow px-2">
      <table class="table table-striped">
       <thead class="text-center">
@@ -47,41 +47,15 @@
         {{-- <th>Status</th> --}}
       </thead>
       <tbody>
-       {{-- @foreach ($dataSection as $item)
-        <tr>
-         <td class="text-center">{{ $item->urutan_section }}</td>
-         <td>{{ $item->deskripsi_section }}</td>
-         <td>{{ $item->jenis_section }}</td>
-         <td class="text-center">
-          <span class="badge rounded-pill text-bg-secondary" id="posisinaik" type="button"><i
-            class="bi bi-chevron-double-up"></i></span>
-          <span class="badge rounded-pill text-bg-secondary" id="posisiturun" type="button"><i
-            class="bi bi-chevron-double-down"></i></span>
-         </td>
-         <td class="text-center">
-          <div class="form-check form-switch">
-           <input class="form-check-input" name="status_checkbox" type="checkbox" role="switch"
-            id="flexSwitchCheckChecked" @if ($item->status == 'active') checked @endif>
-          </div>
-         </td>
-         <td class="text-center">
-          <a href="/urutansection/detail/{{ $item->id }}" type="button">
-           <span class="badge rounded-pill text-bg-info"><i class="bi bi-zoom-in"></i></span>
-          </a>
-          <a href="#"><span class="badge rounded-pill text-bg-warning"><i
-             class="bi bi-pencil-square"></i></span></a>
-          <a href="#"><span class="badge rounded-pill text-bg-danger"><i class="bi bi-trash3"></i></span></a>
-         </td>
-        </tr>
-       @endforeach --}}
        @foreach ($dataSection as $key => $item)
         <tr>
          <td class="text-center">{{ $item->urutan_section }}</td>
          <td>{{ $item->deskripsi_section }}</td>
          <td>{{ $item->jenis_section }}</td>
          <td class="text-center">
+          <!-- Jika item bukan yang pertama -->
           @if ($key != 0)
-           <!-- Jika item bukan yang pertama -->
+           {{-- form ganti urutan section --}}
            <form action="{{ route('urutansection.naik', ['id' => $item->id]) }}" method="post">
             @csrf
             <input type="hidden" name="id" value="{{ $item->id }}">
@@ -90,9 +64,8 @@
             </button>
            </form>
           @endif
-
+          <!-- Jika item bukan yang terakhir -->
           @if ($key != count($dataSection) - 1)
-           <!-- Jika item bukan yang terakhir -->
            <form action="{{ route('urutansection.turun', ['id' => $item->id]) }}" method="post">
             @csrf
             <input type="hidden" name="id" value="{{ $item->id }}">
@@ -103,10 +76,16 @@
           @endif
          </td>
          <td class="text-center">
-          <div class="form-check form-switch">
-           <input class="form-check-input" name="status_checkbox" type="checkbox" role="switch"
-            id="flexSwitchCheckChecked" @if ($item->status == 'active') checked @endif>
-          </div>
+          {{-- form ganti status section --}}
+          <form id="statusForm{{ $item->id }}" action="{{ route('urutansection.status', ['id' => $item->id]) }}"
+           method="post">
+           @csrf
+           <div class="form-check form-switch d-flex justify-content-center align-items-center">
+            <input type="hidden" name="status" value="{{ $item->status == 'active' ? 'inactive' : 'active' }}">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+             {{ $item->status == 'active' ? 'checked' : '' }} onchange="this.form.submit()">
+           </div>
+          </form>
          </td>
          <td class="text-center">
           <a href="{{ route('urutansection.detail', ['id' => $item->id]) }}" type="button">
@@ -121,15 +100,22 @@
 
       </tbody>
      </table>
-     <hr>
+    </div>
+   </div>
+   {{-- Content di bawah tabel section --}}
+   <div class="col-12 p-5">
+    <div class="table-responsive card shadow px-2">
+     <br>
      <a href="#" class="btn btn-secondary" type="button">Tambah Section</a>
-     <hr>
+     <br>
      <a href="/" class="btn btn-primary" type="button">Tampilan Urutan Section Landing Page</a>
-     <hr>
+     <br>
      <h4>Progress</h4>
      <ul>
       <li>Dikerjakan: show/detail tiap jenis section</li>
-      <li>Belum bisa: add , edit, delete, aktif, nonaktif</li>
+      <li>Sudah bisa: naik turun section, on off section</li>
+      <li>Tapi belum bisa tampil sweetalert</li>
+      <li>Belum bisa: (add, edit, delete | section)</li>
      </ul>
      <h4>Fungsi</h4>
      <ul>

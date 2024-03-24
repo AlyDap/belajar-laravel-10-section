@@ -52,6 +52,8 @@
    <div class="col-12">
     <div class="d-grid gap-2">
      <a href="{{ route('urutansection.index') }}" class="btn btn-primary" type="button">CRUD SECTION</a>
+     <br>
+     <h3>tampilan Slideshow landing page pada controller menyebabkan ada scroll sumbu x / horizontal </h3>
     </div>
    </div>
   </div>

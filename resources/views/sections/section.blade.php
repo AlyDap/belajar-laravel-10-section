@@ -51,7 +51,7 @@
 
    <div class="col-12">
     <div class="d-grid gap-2">
-     <a href="/urutansection" class="btn btn-primary" type="button">CRUD SECTION</a>
+     <a href="{{ route('urutansection.index') }}" class="btn btn-primary" type="button">CRUD SECTION</a>
     </div>
    </div>
   </div>

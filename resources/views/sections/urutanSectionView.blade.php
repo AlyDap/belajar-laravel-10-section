@@ -82,14 +82,24 @@
          <td class="text-center">
           @if ($key != 0)
            <!-- Jika item bukan yang pertama -->
-           <span class="badge rounded-pill text-bg-secondary posisinaik" type="button"><i
-             class="bi bi-chevron-double-up"></i></span>
+           <form action="{{ route('urutansection.naik', ['id' => $item->id]) }}" method="post">
+            @csrf
+            <input type="hidden" name="id" value="{{ $item->id }}">
+            <button type="submit" class="badge rounded-pill text-bg-secondary border-0 posisinaik">
+             <i class="bi bi-chevron-double-up"></i>
+            </button>
+           </form>
           @endif
 
           @if ($key != count($dataSection) - 1)
            <!-- Jika item bukan yang terakhir -->
-           <span class="badge rounded-pill text-bg-secondary posisiturun" type="button"><i
-             class="bi bi-chevron-double-down"></i></span>
+           <form action="{{ route('urutansection.turun', ['id' => $item->id]) }}" method="post">
+            @csrf
+            <input type="hidden" name="id" value="{{ $item->id }}">
+            <button type="submit" class="badge rounded-pill text-bg-secondary border-0 posisiturun">
+             <i class="bi bi-chevron-double-down"></i>
+            </button>
+           </form>
           @endif
          </td>
          <td class="text-center">
@@ -99,7 +109,7 @@
           </div>
          </td>
          <td class="text-center">
-          <a href="/urutansection/detail/{{ $item->id }}" type="button">
+          <a href="{{ route('urutansection.detail', ['id' => $item->id]) }}" type="button">
            <span class="badge rounded-pill text-bg-info"><i class="bi bi-zoom-in"></i></span>
           </a>
           <a href="#"><span class="badge rounded-pill text-bg-warning"><i
@@ -157,7 +167,7 @@
   var posisinaikElements = document.querySelectorAll(".posisinaik");
   posisinaikElements.forEach(function(element) {
    element.addEventListener("click", function() {
-    console.log("Ikon Chevron Double Up diklik!");
+    console.log("NAIK");
    });
   });
 
@@ -165,7 +175,7 @@
   var posisiturunElements = document.querySelectorAll(".posisiturun");
   posisiturunElements.forEach(function(element) {
    element.addEventListener("click", function() {
-    console.log("Ikon Chevron Double Down diklik!");
+    console.log("TURUN");
    });
   });
  </script>

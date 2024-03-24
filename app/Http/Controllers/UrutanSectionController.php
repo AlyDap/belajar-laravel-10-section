@@ -10,7 +10,6 @@ use App\Models\Section_Gbr_Hdg_Prgf;
 use App\Models\Section_Peta;
 use App\Models\Section_Slideshow;
 use App\Models\Section_Tulisan;
-use App\Models\Slideshow_Gambar;
 use App\Models\Urutan_Section;
 use Database\Seeders\UrutanSectionSeeder;
 use Illuminate\Http\Request;
@@ -245,10 +244,10 @@ class UrutanSectionController extends Controller
     return view('sections.detailSectionView', $data);
   }
 
-  public function moveUp($id)
+  public function naik($id)
   {
     $section = Urutan_Section::findOrFail($id);
-    $currentOrder = $section->urutan_section;
+    $currentOrder = intval($section->urutan_section);
 
     // Jika data yang dipilih adalah data pertama, maka tidak ada yang bisa diatasnya
     if ($currentOrder == 1) {
@@ -258,14 +257,17 @@ class UrutanSectionController extends Controller
     // Menemukan data dengan urutan sebelumnya
     $previousSection = Urutan_Section::where('urutan_section', $currentOrder - 1)->first();
 
-    // Menukar urutan antara data yang dipilih dan data sebelumnya
-    $section->update(['urutan_section' => $currentOrder - 1]);
+    // jadikan 0 dulu
+    $section->update(['urutan_section' => "0"]);
+    // ubah atasnya ke bawah
     $previousSection->update(['urutan_section' => $currentOrder]);
+    // baru ubah yang mau naik
+    $section->update(['urutan_section' => $currentOrder - 1]);
 
     return response()->json(['message' => 'Urutan data berhasil diperbarui']);
   }
 
-  public function moveDown($id)
+  public function turun($id)
   {
     $section = Urutan_Section::findOrFail($id);
     $currentOrder = $section->urutan_section;
@@ -282,8 +284,9 @@ class UrutanSectionController extends Controller
     $nextSection = Urutan_Section::where('urutan_section', $currentOrder + 1)->first();
 
     // Menukar urutan antara data yang dipilih dan data setelahnya
-    $section->update(['urutan_section' => $currentOrder + 1]);
+    $section->update(['urutan_section' => "0"]);
     $nextSection->update(['urutan_section' => $currentOrder]);
+    $section->update(['urutan_section' => $currentOrder + 1]);
 
     return response()->json(['message' => 'Urutan data berhasil diperbarui']);
   }

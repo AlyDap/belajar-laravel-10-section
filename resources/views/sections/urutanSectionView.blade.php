@@ -111,9 +111,11 @@
    <div class="col-12 p-5">
     <div class="table-responsive card shadow px-2">
      <br>
+     <a href="{{ route('/') }}" class="btn btn-dark" type="button">Backup Section</a>
+     <br>
      <a href="#" class="btn btn-secondary" type="button">Tambah Section</a>
      <br>
-     <a href="/" class="btn btn-primary" type="button">Tampilan Urutan Section Landing Page</a>
+     <a href="{{ route('/') }}" class="btn btn-primary" type="button">Tampilan Urutan Section Landing Page</a>
      <br>
      <h4>Progress</h4>
      <ul>
@@ -134,6 +136,8 @@
        urutan tetap 1. Misal yang dihapus adala urutan section 3 sedangkan ada 5 section, maka section urutan ke 3 akan
        diubah menjadi urutan ke 0 dan yang urutan 4 ke bawah akan dikurangi 1, kemudian baru hapus urutan section 0. Ini
        karena urutan section bersifat uniq</li>
+      <li>Saat klik backup section akan menampilkan tabel yang sudah dihapus dengan urutan_section uuid, jika klik
+       pulihkan maka urutan_section akan berubah menjadi urutan yang terakhir. Begitu juga untuk tabel turunannya.</li>
      </ul>
      <h4>UI / UX</h4>
      <ul>

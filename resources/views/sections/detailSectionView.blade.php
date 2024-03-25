@@ -47,7 +47,7 @@
       @endif
      </p>
      <p>
-      <a href="/urutansection" type="button" class="btn btn-dark">BACK</a>
+      <a href="{{ route('urutansection.index') }}" type="button" class="btn btn-dark">BACK</a>
      </p>
     </div>
    </div>

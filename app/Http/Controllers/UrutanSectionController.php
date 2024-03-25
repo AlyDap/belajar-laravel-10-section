@@ -13,6 +13,7 @@ use App\Models\Section_Tulisan;
 use App\Models\Urutan_Section;
 use Database\Seeders\UrutanSectionSeeder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use PhpParser\Node\Stmt\Foreach_;
 
 class UrutanSectionController extends Controller
@@ -307,6 +308,7 @@ class UrutanSectionController extends Controller
   public function delete($id)
   {
     // dd($id);
+    $sectionTrash = Urutan_Section::withTrashed()->findOrFail($id);
     $section = Urutan_Section::findOrFail($id);
 
     $deletedOrder = intval($section->urutan_section);
@@ -320,14 +322,12 @@ class UrutanSectionController extends Controller
     } elseif ($section->jenis_section == 'peta') {
       $sectionDetail = Section_Peta::where('id_section', $id)->first();
       if ($sectionDetail) {
-        Section_Peta::destroy($sectionDetail->id);
-        dd('berhasil hapus');
-
-        // dd('berhasil nangkap id');
         $hapusPeta = $sectionDetail->delete();
         if ($hapusPeta) {
           $hapusSection = $section->delete();
           if ($hapusSection) {
+            $sectionTrash->urutan_section = Str::uuid(); // Generating UUID
+            $sectionTrash->save();
             // Dapatkan daftar section dengan urutan lebih besar dari urutan section yang dihapus
             $sectionsToUpdate = Urutan_Section::where('urutan_section', '>', $deletedOrder)->orderBy('urutan_section')->get();
             // cek apakah urutannya terakhir

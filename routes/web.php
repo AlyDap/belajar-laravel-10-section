@@ -21,11 +21,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/')->group(function () {
     // contoh tampilan landing pages
-    Route::get('', [UrutanSectionController::class, 'index'])->name('bebas');
+    Route::get('', [UrutanSectionController::class, 'index'])->name('/');
 });
 Route::prefix('/urutansection')->group(function () {
     // index tabel section
     Route::get('', [UrutanSectionController::class, 'indexTabelSection'])->name('urutansection.index');
+    Route::get('backup', [UrutanSectionController::class, 'backupTabelSection'])->name('urutansection.backup');
     // Detail urutan Section
     Route::get('detail/{id}', [UrutanSectionController::class, 'detailSection'])->name('urutansection.detail');
     // update urutan section naik turun

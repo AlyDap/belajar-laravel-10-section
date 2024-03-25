@@ -111,7 +111,7 @@
    <div class="col-12 p-5">
     <div class="table-responsive card shadow px-2">
      <br>
-     <a href="{{ route('/') }}" class="btn btn-dark" type="button">Backup Section</a>
+     <a href="{{ route('urutansection.backup') }}" class="btn btn-dark" type="button">Backup Section</a>
      <br>
      <a href="#" class="btn btn-secondary" type="button">Tambah Section</a>
      <br>

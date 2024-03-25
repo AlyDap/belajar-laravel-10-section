@@ -179,6 +179,23 @@ class UrutanSectionController extends Controller
     ];
     return view('sections.urutanSectionView', $data);
   }
+  public function backup()
+  {
+    $urutanSection = Urutan_Section::onlyTrashed()->orderBy('deleted_at')->get();
+    $data = [
+      'dataSection' => $urutanSection,
+    ];
+    return view('sections.backupSectionView', $data);
+  }
+  public function backupSection()
+  {
+    // $urutanSection = Urutan_Section::onlyTrashed()->orderBy('deleted_at')->get();
+    // $data = [
+    //   'dataSection' => $urutanSection,
+    // ];
+    // return view('sections.backupSectionView', $data);
+    dd('belum bisa backup');
+  }
 
   public function detailSection($id)
   {

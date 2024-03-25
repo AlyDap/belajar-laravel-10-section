@@ -1,3 +1,5 @@
+@dd($dataSection)
+
 <!DOCTYPE html>
 <html lang="en">
 

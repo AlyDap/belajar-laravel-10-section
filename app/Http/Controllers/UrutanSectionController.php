@@ -125,26 +125,26 @@ class UrutanSectionController extends Controller
           $sectionGHPId = $sectionGHP[$section->id] ?? null;
           if ($sectionGHPId) {
             $sectionData[] = '<div class="col-md-4 col-12 d-flex justify-content-center align-items-center  mb-5">
-     <div class="row-12">';
+             <div class="row-12">';
             foreach ($gambarGHP as $gbrGHP) {
               // perulangan gambar ghp
               if ($gbrGHP->id_gbr_hdg_prgf == $sectionGHPId->id) {
                 $sectionData[] = '     <div class="col-12">
-       <img src="/img/landing_page/' . $gbrGHP->file_gambar . '" alt="gambarr" class="gambaratasbawah my-2 rounded-circle img-fluid">
-      </div>';
+            <img src="/img/landing_page/' . $gbrGHP->file_gambar . '" alt="gambarr" class="gambaratasbawah my-2 rounded-circle img-fluid">
+            </div>';
               }
             }
             $sectionData[] = '   </div>
-     </div>
-     <div class="col-md-8 col-12 d-flex align-items-center mb-5">
-     <div class="row-12">';
+            </div>
+            <div class="col-md-8 col-12 d-flex align-items-center mb-5">
+            <div class="row-12">';
 
             // lanjut ke heading
             foreach ($headingGHP as $hdgGHP) {
               if ($hdgGHP->id_gbr_hdg_prgf == $sectionGHPId->id) {
                 $sectionData[] = '<div class="col-12">
-       <h1 class="text-center">' . $hdgGHP->nama_heading . '</h1>
-      </div>';
+          <h1 class="text-center">' . $hdgGHP->nama_heading . '</h1>
+          </div>';
 
                 // lanjut ke paragraf dalam heading
                 $sectionData[] = '<div class="col-12">';
@@ -158,8 +158,8 @@ class UrutanSectionController extends Controller
             }
 
             $sectionData[] = '
-     </div>
-    </div>';
+            </div>
+            </div>';
           }
         }
       }
@@ -300,6 +300,71 @@ class UrutanSectionController extends Controller
     $section = Urutan_Section::findOrFail($id);
     $status = $request->input('status');
     $section->update(['status' => $status]);
+    return redirect()->back()->with('success', 'Status berhasil diubah.');
+  }
+  public function delete($id)
+  {
+    // dd($id);
+    $section = Urutan_Section::findOrFail($id);
+
+    $deletedOrder = intval($section->urutan_section);
+    // $totalSections = Urutan_Section::count();
+    // dd($section);
+
+    // coba hapus data yang ada direlasi section
+    if ($section->jenis_section == 'slide show') {
+      $sectionDetail = Section_Slideshow::where('id_section', $id)->get();
+      dd($sectionDetail);
+    } elseif ($section->jenis_section == 'peta') {
+      $sectionDetail = Section_Peta::where('id_section', $id)->first();
+      if ($sectionDetail) {
+        // dd('berhasil nangkap id');
+        $hapusPeta = $sectionDetail->delete();
+        if ($hapusPeta) {
+          dd('berhasil hapus');
+          return redirect()->back()->with('success', 'Data berhasil dihapus.');
+        } else {
+          dd('gagal hapus');
+          return redirect()->back()->with('error', 'Data tidak ditemukan.');
+        }
+      } else {
+        dd('gagal nangkap id');
+        return redirect()->back()->with('error', 'Data tidak ditemukan.');
+      }
+      dd($sectionDetail);
+    } elseif ($section->jenis_section == 'gambar full') {
+      $sectionDetail = Section_Gambar::where('id_section', $id)->first();
+      dd($sectionDetail);
+    } elseif ($section->jenis_section == 'tulisan dengan bg warna full') {
+      $sectionDetail = Section_Tulisan::where('id_section', $id)->first();
+      dd($sectionDetail);
+    } elseif ($section->jenis_section == 'gambar heading paragraf') {
+      $sectionDetail = Section_Gbr_Hdg_Prgf::where('id_section', $id)->first();
+      dd($sectionDetail);
+    }
+
+    // $section->delete();
+    // jika sudah berhasil delete data tabel relasi
+
+
+    // Dapatkan daftar section dengan urutan lebih besar dari urutan section yang dihapus
+    $sectionsToUpdate = Urutan_Section::where('urutan_section', '>', $deletedOrder)->orderBy('urutan_section')->get();
+    // cek apakah urutannya terakhir
+    if ($sectionsToUpdate->isNotEmpty()) {
+      // Kurangi satu dari urutan setiap section dalam daftar tersebut
+      foreach ($sectionsToUpdate as $gantiUrutan) {
+        $gantiUrutan->urutan_section = $gantiUrutan->urutan_section - 1;
+        // UNCOMMMENT INI KALAU MAU NAIKIN URUTAN SECTION SETELAH HAPUS
+        // $gantiUrutan->save();
+      }
+      // dd($cek);
+    } else {
+      dd('urutan terakhir jadi tidak edit urutan yang lain');
+    }
+
+
+
+
     return redirect()->back()->with('success', 'Status berhasil diubah.');
   }
 }

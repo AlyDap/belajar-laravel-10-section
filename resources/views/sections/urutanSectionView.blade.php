@@ -77,8 +77,7 @@
          </td>
          <td class="text-center">
           {{-- form ganti status section --}}
-          <form id="statusForm{{ $item->id }}" action="{{ route('urutansection.status', ['id' => $item->id]) }}"
-           method="post">
+          <form action="{{ route('urutansection.status', ['id' => $item->id]) }}" method="post">
            @csrf
            <div class="form-check form-switch d-flex justify-content-center align-items-center">
             <input type="hidden" name="status" value="{{ $item->status == 'active' ? 'inactive' : 'active' }}">
@@ -93,7 +92,13 @@
           </a>
           <a href="#"><span class="badge rounded-pill text-bg-warning"><i
              class="bi bi-pencil-square"></i></span></a>
-          <a href="#"><span class="badge rounded-pill text-bg-danger"><i class="bi bi-trash3"></i></span></a>
+          <form action="{{ route('urutansection.delete', ['id' => $item->id]) }}" method="post">
+           @csrf
+           <input type="hidden" name="id" value="{{ $item->id }}">
+           <button type="submit" class="badge rounded-pill text-bg-danger border-0 posisiturun">
+            <i class="bi bi-trash3"></i>
+           </button>
+          </form>
          </td>
         </tr>
        @endforeach

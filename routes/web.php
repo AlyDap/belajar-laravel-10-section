@@ -32,6 +32,7 @@ Route::prefix('/urutansection')->group(function () {
     Route::post('naik/{id}', [UrutanSectionController::class, 'naik'])->name('urutansection.naik');
     Route::post('turun/{id}', [UrutanSectionController::class, 'turun'])->name('urutansection.turun');
     Route::post('status/{id}', [UrutanSectionController::class, 'status'])->name('urutansection.status');
+    Route::post('delete/{id}', [UrutanSectionController::class, 'delete'])->name('urutansection.delete');
     // update status section 
 });
 // Route::get('updateUrutan/{id}', [UrutanSectionController::class, 'detailSection'])->name('hahhah');

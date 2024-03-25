@@ -74,6 +74,12 @@ class UrutanSectionController extends Controller
               }
             }
           }
+          // foreach ($section->slideImages as $i => $slideshow) {
+          //   $active = $i == 0 ? 'active' : '';
+          //   $sectionData[] = "<div class='carousel-item $active'>
+          //      <img src='/img/landing_page/{$slideshow->file_gambar}' class='d-block w-100' alt='gambar slideshow'>
+          //  </div>";
+          // }
           $sectionData[] = '</div>
    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
     data-bs-slide="prev">
@@ -168,7 +174,7 @@ class UrutanSectionController extends Controller
     } else {
       $sectionData[] = '<p class="text-center">Data tidak ditemukan</p>';
     }
-    return view('sections.section', ['sectionData' => $sectionData]);
+    return view('sections.section', ['sectionData' => $sectionData, 'sections' => $urutanSection]);
   }
 
   public function indexTabelSection()

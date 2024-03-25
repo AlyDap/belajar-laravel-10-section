@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Gbr_Hdg_Prgf_Heading extends Model
 {
-
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
@@ -19,5 +18,10 @@ class Gbr_Hdg_Prgf_Heading extends Model
     public function ghpHeading()
     {
         return $this->belongsTo(Section_Gbr_Hdg_Prgf::class, 'id_gbr_hdg_prgf', 'id');
+    }
+
+    public function paragrafs()
+    {
+        return $this->hasMany(Gbr_Hdg_Prgf_Heading_Paragraf::class, 'id_gbr_hdg_prgf_head');
     }
 }

@@ -45,9 +45,16 @@
    </div> --}}
    {{-- MASIH BISA DISCROL KANAN KIRI --}}
 
-   @foreach ($sectionData as $data)
+   {{-- @foreach ($sectionData as $data)
     {!! $data !!}
-   @endforeach
+   @endforeach --}}
+
+    @foreach ($sections as $section)
+      @php
+          $partialName = str_replace(' ', '_', strtolower($section->jenis_section));
+      @endphp
+      @includeIf("sections.partials.$partialName", ['data' => $section])
+    @endforeach
 
    <div class="col-12">
     <div class="d-grid gap-2">

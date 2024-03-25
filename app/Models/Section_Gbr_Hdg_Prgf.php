@@ -19,4 +19,14 @@ class Section_Gbr_Hdg_Prgf extends Model
     {
         return $this->belongsTo(Urutan_Section::class, 'id_section', 'id');
     }
+
+    public function images()
+    {
+        return $this->hasMany(Gbr_Hdg_Prgf_Gambar::class, 'id_gbr_hdg_prgf');
+    }
+
+    public function heading()
+    {
+        return $this->hasMany(Gbr_Hdg_Prgf_Heading::class, 'id_gbr_hdg_prgf');
+    }
 }

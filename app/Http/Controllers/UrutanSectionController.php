@@ -25,6 +25,8 @@ class UrutanSectionController extends Controller
   public function __construct()
   {
     $this->urutanSection = Urutan_Section::orderBy('urutan_section')->get();
+    // $this->urutanSection = Urutan_Section::withTrashed()->orderBy('urutan_section')->get();
+    // $this->urutanSection = Urutan_Section::onlyTrashed()->orderBy('urutan_section')->get();
   }
 
   public function index()
@@ -318,11 +320,31 @@ class UrutanSectionController extends Controller
     } elseif ($section->jenis_section == 'peta') {
       $sectionDetail = Section_Peta::where('id_section', $id)->first();
       if ($sectionDetail) {
+        Section_Peta::destroy($sectionDetail->id);
+        dd('berhasil hapus');
+
         // dd('berhasil nangkap id');
         $hapusPeta = $sectionDetail->delete();
         if ($hapusPeta) {
-          dd('berhasil hapus');
-          return redirect()->back()->with('success', 'Data berhasil dihapus.');
+          $hapusSection = $section->delete();
+          if ($hapusSection) {
+            // Dapatkan daftar section dengan urutan lebih besar dari urutan section yang dihapus
+            $sectionsToUpdate = Urutan_Section::where('urutan_section', '>', $deletedOrder)->orderBy('urutan_section')->get();
+            // cek apakah urutannya terakhir
+            if ($sectionsToUpdate->isNotEmpty()) {
+              // Kurangi satu dari urutan setiap section dalam daftar tersebut
+              foreach ($sectionsToUpdate as $gantiUrutan) {
+                $gantiUrutan->urutan_section = $gantiUrutan->urutan_section - 1;
+                // UNCOMMMENT INI KALAU MAU NAIKIN URUTAN SECTION SETELAH HAPUS
+                $gantiUrutan->save();
+              }
+              // dd($cek);
+            } else {
+              // dd('urutan terakhir jadi tidak edit urutan yang lain');
+            }
+            dd('berhasil hapus');
+            return redirect()->back()->with('success', 'Data berhasil dihapus.');
+          }
         } else {
           dd('gagal hapus');
           return redirect()->back()->with('error', 'Data tidak ditemukan.');
@@ -347,20 +369,7 @@ class UrutanSectionController extends Controller
     // jika sudah berhasil delete data tabel relasi
 
 
-    // Dapatkan daftar section dengan urutan lebih besar dari urutan section yang dihapus
-    $sectionsToUpdate = Urutan_Section::where('urutan_section', '>', $deletedOrder)->orderBy('urutan_section')->get();
-    // cek apakah urutannya terakhir
-    if ($sectionsToUpdate->isNotEmpty()) {
-      // Kurangi satu dari urutan setiap section dalam daftar tersebut
-      foreach ($sectionsToUpdate as $gantiUrutan) {
-        $gantiUrutan->urutan_section = $gantiUrutan->urutan_section - 1;
-        // UNCOMMMENT INI KALAU MAU NAIKIN URUTAN SECTION SETELAH HAPUS
-        // $gantiUrutan->save();
-      }
-      // dd($cek);
-    } else {
-      dd('urutan terakhir jadi tidak edit urutan yang lain');
-    }
+
 
 
 

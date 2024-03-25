@@ -30,6 +30,7 @@ Route::prefix('/urutansection')->group(function () {
     Route::get('backupSection', [UrutanSectionController::class, 'backupSection'])->name('urutansection.backupSection');
     // Detail urutan Section
     Route::get('detail/{id}', [UrutanSectionController::class, 'detailSection'])->name('urutansection.detail');
+    Route::get('detail/{id}/trash', [UrutanSectionController::class, 'detailSection'])->name('urutansection.detail.trash');
     // update urutan section naik turun
     Route::post('naik/{id}', [UrutanSectionController::class, 'naik'])->name('urutansection.naik');
     Route::post('turun/{id}', [UrutanSectionController::class, 'turun'])->name('urutansection.turun');

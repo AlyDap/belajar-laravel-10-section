@@ -59,7 +59,7 @@
           </div>
          </td>
          <td class="text-center">
-          <a href="{{ route('urutansection.detail', ['id' => $item->id]) }}" type="button">
+          <a href="{{ route('urutansection.detail.trash', ['id' => $item->id]) }}" type="button">
            <span class="badge rounded-pill text-bg-info"><i class="bi bi-zoom-in"></i></span>
           </a>
           <form action="{{ route('urutansection.backupSection', ['id' => $item->id]) }}" method="post">
@@ -75,6 +75,15 @@
 
       </tbody>
      </table>
+    </div>
+   </div>
+   <div class="col-12">
+    <div class="table-responsive card shadow px-2">
+     <br>
+     <a href="{{ route('urutansection.index') }}" class="btn btn-dark" type="button">Tabel Section</a>
+     <br>
+     <a href="{{ route('/') }}" class="btn btn-primary" type="button">Tampilan Urutan Section Landing Page</a>
+     <br>
     </div>
    </div>
   </div>

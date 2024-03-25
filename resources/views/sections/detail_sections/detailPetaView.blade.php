@@ -2,7 +2,10 @@
  <div class="card shadow mb-3">
   {!! $detailSection !!}
  </div>
- <button type="button" class="btn btn-warning">Ubah Peta</button>
+ @if ($cek == 'trash')
+ @else
+  <button type="button" class="btn btn-warning">Ubah Peta</button>
+ @endif
 </div>
 {{-- keterangan peta --}}
 <div class="col-12 mt-3">

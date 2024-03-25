@@ -197,10 +197,16 @@ class UrutanSectionController extends Controller
     dd('belum bisa backup');
   }
 
-  public function detailSection($id)
+  public function detailSection(Request $cek, $id)
   {
     $data = [];
-    $urutanSection = Urutan_Section::findOrFail($id);
+    $urutanSection = Urutan_Section::withTrashed()->findOrFail($id);
+
+
+    // dd($data);
+
+    // $urutanSection = Urutan_Section::findOrFail($id);
+    // dd($cek);
     if ($urutanSection) {
       $data = [
         'dataSection' => $urutanSection,
@@ -216,7 +222,7 @@ class UrutanSectionController extends Controller
         }
         // PETA tampilan sudah
       } elseif ($urutanSection->jenis_section == 'peta') {
-        $sectionPeta = Section_Peta::where('id_section', $urutanSection->id)->first();
+        $sectionPeta = Section_Peta::withTrashed()->where('id_section', $urutanSection->id)->first();
         if ($sectionPeta->id_section == $urutanSection->id) {
           $data['detailSection'] = $sectionPeta->url_peta;
         }
@@ -260,6 +266,13 @@ class UrutanSectionController extends Controller
         }
       }
     }
+
+    if ($cek->is('urutansection/detail/*/trash')) {
+      $data['cek'] = 'trash';
+    } else {
+      $data['cek'] = '';
+    }
+
     // dd($data['detailSection']);
     return view('sections.detailSectionView', $data);
   }
